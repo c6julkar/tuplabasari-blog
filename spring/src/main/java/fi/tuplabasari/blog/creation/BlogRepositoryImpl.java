@@ -14,8 +14,8 @@ public class BlogRepositoryImpl implements BlogRepository {
     @PostConstruct
     public synchronized void init() {
         blogPosts = new ArrayList<>();
-        blogPosts.add(new BlogPost("fdsafd", "fdssda"));
-        blogPosts.add(new BlogPost("fddfsgsdgfdsgsdg", "fdgsdfgdsgsdfgdssda"));
+        blogPosts.add(new BlogPost("Eka blogi", "Tykkaan hgommista."));
+        blogPosts.add(new BlogPost("Toka blogi", "Aika basa homma imo."));
     }
 
     @Override
