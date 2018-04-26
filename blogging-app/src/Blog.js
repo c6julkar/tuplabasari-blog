@@ -1,10 +1,10 @@
 import React from "react";
 
-class Blogs extends React.Component {
+class Blog extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {id: this.props.id,header: this.props.header,content: this.props.content, url:"http://localhost:8080/posts/" + props.match.params.name};
+        this.state = {id: this.props.id,header: this.props.header,content: this.props.content, url:"http://localhost:8080/posts/" + props.match.params.id};
     }
 
     componentDidMount() {
@@ -23,10 +23,13 @@ class Blogs extends React.Component {
 
     render() {
         return (
-            <table>
-                <tr><td>#</td><td>Header</td><td>Content</td></tr>
-                <tr><td>{this.state.id}</td><td>{this.state.header}</td><td>{this.state.content}</td></tr>
+            <div className="table-responsive">
+            <table class="table">
+                <tr><td>{this.state.header}</td></tr><tr><td>{this.state.content}</td></tr>
             </table>
+            </div>
         );
     }
 }
+
+export default Blog
