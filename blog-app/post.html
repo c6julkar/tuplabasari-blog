@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        Title
+    </title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+
+        class App extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {id: this.props.id,header: this.props.header,content: this.props.content, url:this.props.src};
+                this.state.url = this.state.url + this.props.match.params.id;
+            }
+
+            componentDidMount() {
+                this.fetchPost();
+            }
+
+            fetchPost() {
+                fetch(this.state.url) .then((resp) => resp.json()) // Transform the data into json
+                    .then((data) => {
+                        console.log(data)
+                        this.setState({'id':data['id']});
+                        this.setState({'header':data['header']});
+                        this.setState({'content':data['content']});
+                    })
+            }
+
+            render() {
+                return (
+                    <table>
+                        <tr><td>#</td><td>Header</td><td>Content</td></tr>
+                        <tr><td>{this.state.id}</td><td>{this.state.header}</td><td>{this.state.content}</td></tr>
+                    </table>
+                );
+            }
+        }
+        ReactDOM.render(<App src="http://localhost:8080/posts/"/>, document.getElementById('root'));
+    </script>
+</head>
+<body>
+<noscript>
+    You need to enable JavaScript to run this app.
+</noscript>
+<div id="root">
+
+</div>
+
+</body>
+</html>
