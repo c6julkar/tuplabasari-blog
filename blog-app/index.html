@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        Title
+    </title>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel">
+        class App extends React.Component {
+
+            constructor(props) {
+                super(props);
+                this.state = {id: [],header:[],content: [], url:this.props.src};
+            }
+
+            componentDidMount() {
+                this.fetchPost();
+            }
+
+            fetchPost() {
+                fetch(this.state.url) .then((resp) => resp.json()) // Transform the data into json
+                    .then((data) => {
+                        //console.log(data)
+                        for (let i = 0; i < data.length; i++) {
+                            this.setState({
+                                id: [...this.state.id, data[i].id]
+                            });
+                            this.setState({
+                                header: [...this.state.header, data[i].header]
+                            });
+                            this.setState({
+                                content: [...this.state.content, data[i].content]
+                            });
+                        }
+                    })
+            }
+
+            render() {
+                let element = [];
+                for (let i = 0; i < this.state.id.length; i++) {
+                    element[i] = <tr><td>{this.state.id[i]}</td><td>{this.state.header[i]}</td><td>{this.state.content[i]}</td></tr>;
+                }
+                return (
+                    <table>
+                        <tr><td>#</td><td>Header</td><td>Content</td></tr>
+                        {element}
+                    </table>
+                );
+            }
+        }
+        ReactDOM.render(<App src="http://localhost:8080/posts/"/>, document.getElementById('root'));
+    </script>
+</head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root">
+
+    </div>
+
+  </body>
+</html>
