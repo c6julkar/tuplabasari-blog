@@ -5,6 +5,8 @@
         Title
     </title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -41,11 +43,12 @@
             render() {
                 let element = [];
                 for (let i = 0; i < this.state.id.length; i++) {
-                    element[i] = <tr><td>{this.state.id[i]}</td><td>{this.state.header[i]}</td><td>{this.state.content[i]}</td></tr>;
+                    let link = "index.html/" + this.state.id[i];
+                    element[i] = <tr><td><a href={link}>{this.state.header[i]}</a></td><td>{this.state.content[i]}</td></tr>;
                 }
                 return (
                     <table>
-                        <tr><td>#</td><td>Header</td><td>Content</td></tr>
+                        <tr><td>Header</td><td>Content</td></tr>
                         {element}
                     </table>
                 );
