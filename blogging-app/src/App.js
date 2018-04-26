@@ -31,9 +31,10 @@ class Blogs extends React.Component {
     }
 
     fetchPost() {
+        //this.state = {id: [],header:[],content: [], url:"http://localhost:8080/posts/", newHeader: "", newContent: ""};
         fetch(this.state.url) .then((resp) => resp.json()) // Transform the data into json
             .then((data) => {
-                //console.log(data)
+                console.log(data)
                 for (let i = 0; i < data.length; i++) {
                     this.setState({
                         id: [...this.state.id, data[i].id]
@@ -86,19 +87,31 @@ class Blogs extends React.Component {
         this.setState({[name]: event.target.value});
     }
 
-    deletePost(id) {
+    deletePost(id, index) {
         fetch(this.state.url + '/' + id, {
             method: 'delete'
-        })
-            .then(response => response.json());
+        });
+        var array = this.state.id;
+        array.splice(index, 1);
+        this.setState({id: array });
+
+        var header = this.state.header;
+        header.splice(index, 1);
+        this.setState({header: header });
+
+        var content = this.state.content;
+        content.splice(index, 1);
+        this.setState({content: content });
+
     }
 
     render() {
         let element = [];
         for (let i = 0; i < this.state.id.length; i++) {
             let link = "/blog/" + this.state.id[i];
-            element[i] = <tr><td><a href={link}>{this.state.header[i]}</a></td><td><a href={link}>{this.state.content[i]}</a></td><td>
-                <button onClick={this.deletePost(this.state.id[i])} type="button" className="btn btn-warning">Delete post</button></td></tr>;
+            element[i] = <tr><td><a href={link}>{this.state.header[i]}</a></td><td><a href={link}>{this.state.content[i]}</a></td>
+                <td><button onClick={() => this.deletePost(this.state.id[i], i)} type="button" className="btn btn-danger">Delete post</button></td>
+            </tr>;
         }
         return (
             <div>
