@@ -24,8 +24,9 @@ public class BlogRepositoryImpl implements BlogRepository {
 
     @Override
     public synchronized BlogPost saveEntry(BlogPost entry) {
-        blogPosts.add(entry);
-        return entry;
+        BlogPost tmp = new BlogPost(entry.getHeader(), entry.getContent());
+        blogPosts.add(tmp);
+        return tmp;
     }
 
     @Override
